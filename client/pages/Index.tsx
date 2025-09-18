@@ -19,10 +19,6 @@ export default function Index() {
         <div className="mx-auto max-w-7xl px-4">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div className="py-20 lg:py-28">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
-                <span className="size-1.5 rounded-full bg-brand shadow-[0_0_12px_hsla(var(--brand)/0.8)]" />
-                Modern 3D Experience
-              </div>
               <h1 className="mt-5 text-4xl md:text-5xl lg:text-6xl font-bold font-orbitron leading-tight text-white drop-shadow-[0_0_24px_rgba(0,162,255,0.25)]">
                 Abhyudaya Club Portal
               </h1>
@@ -30,7 +26,11 @@ export default function Index() {
                 Immerse in a smooth, interactive 3D experience powered by React Three Fiber.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Link to="/events" className="btn-cta">Explore</Link>
+                <Link to="/events" className="px-6 py-3 rounded-full bg-black text-white font-semibold">Explore</Link>
+              </div>
+              <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+                <span className="size-1.5 rounded-full bg-brand shadow-[0_0_12px_hsla(var(--brand)/0.8)]" />
+                Modern 3D Experience
               </div>
             </div>
 
