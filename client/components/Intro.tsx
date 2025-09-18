@@ -87,6 +87,19 @@ export default function Intro({ onFinish }: { onFinish: () => void }) {
     return () => clearTimeout(timer);
   }, [onFinish]);
 
+  // load Visme embed script once
+  useEffect(() => {
+    if (!visible) return;
+    const id = "vismeforms-embed";
+    if (!document.getElementById(id)) {
+      const s = document.createElement("script");
+      s.id = id;
+      s.src = "https://static-bundles.visme.co/forms/vismeforms-embed.js";
+      s.async = true;
+      document.body.appendChild(s);
+    }
+  }, [visible]);
+
   return (
     <AnimatePresence>
       {visible && (
@@ -119,6 +132,22 @@ export default function Intro({ onFinish }: { onFinish: () => void }) {
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.7 }}
             />
+          </div>
+
+          {/* Embedded Visme form (small, responsive) */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[92vw] max-w-md pointer-events-auto">
+            <div className="glass p-2">
+              <div
+                className="visme_d"
+                data-title="Webinar Registration Form"
+                data-url="g7ddqxx0-untitled-project?fullPage=true"
+                data-domain="forms"
+                data-full-page="false"
+                data-min-height="260px"
+                data-form-id="133190"
+                style={{ height: 260 }}
+              />
+            </div>
           </div>
         </motion.div>
       )}
