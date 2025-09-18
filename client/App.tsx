@@ -15,7 +15,9 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import Intro from "./components/Intro";
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const queryClient = new QueryClient();
 
@@ -115,16 +117,40 @@ function AnimatedRoutes() {
   );
 }
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AnimatedRoutes />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  const [showIntro, setShowIntro] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return sessionStorage.getItem("introPlayed") !== "1";
+  });
+
+  useEffect(() => {
+    if (!showIntro) return;
+    const hideOnSlow = setTimeout(() => {
+      setShowIntro(false);
+      sessionStorage.setItem("introPlayed", "1");
+    }, 3200);
+    return () => clearTimeout(hideOnSlow);
+  }, [showIntro]);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AnimatedRoutes />
+        </BrowserRouter>
+        {showIntro && (
+          <Intro
+            onFinish={() => {
+              sessionStorage.setItem("introPlayed", "1");
+              setShowIntro(false);
+            }}
+          />
+        )}
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 createRoot(document.getElementById("root")!).render(<App />);
