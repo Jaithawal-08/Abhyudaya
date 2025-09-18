@@ -120,17 +120,27 @@ function AnimatedRoutes() {
 const App = () => {
   const [showIntro, setShowIntro] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
-    return sessionStorage.getItem("introPlayed") !== "1";
+    const params = new URLSearchParams(window.location.search);
+    const force = params.get("intro") === "1";
+    return force || sessionStorage.getItem("introPlayed") !== "1";
   });
+
+  const durationMs = (() => {
+    if (typeof window === "undefined") return 3200;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("introPersist") === "1") return 0; // don't auto-hide
+    return 3200; // default
+  })();
 
   useEffect(() => {
     if (!showIntro) return;
+    if (durationMs === 0) return; // persist
     const hideOnSlow = setTimeout(() => {
       setShowIntro(false);
       sessionStorage.setItem("introPlayed", "1");
-    }, 3200);
+    }, durationMs);
     return () => clearTimeout(hideOnSlow);
-  }, [showIntro]);
+  }, [showIntro, durationMs]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -142,6 +152,7 @@ const App = () => {
         </BrowserRouter>
         {showIntro && (
           <Intro
+            durationMs={durationMs}
             onFinish={() => {
               sessionStorage.setItem("introPlayed", "1");
               setShowIntro(false);
