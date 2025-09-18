@@ -76,16 +76,17 @@ function Particles() {
   return <points ref={ref} geometry={geom} material={mat} />;
 }
 
-export default function Intro({ onFinish }: { onFinish: () => void }) {
+export default function Intro({ onFinish, durationMs = 2600 }: { onFinish: () => void; durationMs?: number }) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
+    if (durationMs <= 0) return; // persist until closed
     const timer = setTimeout(() => {
       setVisible(false);
       onFinish();
-    }, 2600);
+    }, durationMs);
     return () => clearTimeout(timer);
-  }, [onFinish]);
+  }, [onFinish, durationMs]);
 
   // load Visme embed script once
   useEffect(() => {
@@ -109,6 +110,18 @@ export default function Intro({ onFinish }: { onFinish: () => void }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.6 } }}
         >
+          {/* Skip button for debugging or if embed needs more time */}
+          <button
+            onClick={() => {
+              setVisible(false);
+              onFinish();
+            }}
+            className="absolute right-4 top-4 z-[102] px-3 py-1.5 rounded-full text-xs bg-white/10 hover:bg-white/20 text-white border border-white/20"
+            aria-label="Skip intro"
+          >
+            Skip
+          </button>
+
           <Canvas
             className="pointer-events-none"
             orthographic
