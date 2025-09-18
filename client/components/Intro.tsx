@@ -110,10 +110,11 @@ export default function Intro({ onFinish }: { onFinish: () => void }) {
           exit={{ opacity: 0, transition: { duration: 0.6 } }}
         >
           <Canvas
+            className="pointer-events-none"
             orthographic
             camera={{ position: [0, 0, 10], zoom: 60 }}
             dpr={[1, 2]}
-          >
+         >
             {/* beams */}
             <Beam color="#ff3b3b" speed={1.6} y={1.8} rot={0.1} />
             <Beam color="#00a2ff" speed={1.9} y={0.6} rot={-0.05} />
