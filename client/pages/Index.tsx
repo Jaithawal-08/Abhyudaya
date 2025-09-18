@@ -14,7 +14,7 @@ export default function Index() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none select-none">
-          <motion.div style={{ y: y1 }} className="absolute -top-24 -left-32 h-72 w-72 rounded-full blur-3xl" style={{ y: y1 as any }}>
+          <motion.div style={{ y: y1 }} className="absolute -top-24 -left-32 h-72 w-72 rounded-full blur-3xl">
             {/* decorative blob */}
           </motion.div>
         </div>
