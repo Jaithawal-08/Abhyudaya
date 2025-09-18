@@ -119,11 +119,24 @@ export default function Intro({ onFinish, durationMs = 2600 }: { onFinish: () =>
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed inset-0 z-[100] bg-gradient-to-b from-black to-black/90"
+          className="fixed inset-0 z-[100] bg-black"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.6 } }}
         >
+          {/* Background video */}
+          <div className="absolute inset-0">
+            <video
+              src="https://cdn.builder.io/o/assets%2F9758f7b189e3493e85a0640ad32b6e46%2Fc53559faf08146e98bb79709e6d427a2?alt=media&token=334aa773-9982-4956-800d-3954905e2d3e&apiKey=9758f7b189e3493e85a0640ad32b6e46"
+              className="w-full h-full object-cover opacity-80"
+              autoPlay
+              muted
+              playsInline
+              loop
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
+          </div>
+
           {/* Skip button for debugging or if embed needs more time */}
           <button
             onClick={() => {
