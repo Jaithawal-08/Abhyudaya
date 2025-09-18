@@ -4,7 +4,7 @@ import { Suspense, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { CAMERA, COLORS, PERFORMANCE } from "@/utils/threeDefaults";
 
-const LOGO_URL = "https://cdn.builder.io/api/v1/image/assets%2F9758f7b189e3493e85a0640ad32b6e46%2F4b3b45ce08f9477c9a4b7cc5f5f2e91b?format=webp&width=800";
+const LOGO_URL = "https://cdn.builder.io/api/v1/image/assets%2F9758f7b189e3493e85a0640ad32b6e46%2Fe1068dbaed354b2bbc6891ac7ddc1046?format=webp&width=800";
 
 function LogoPlane() {
   const mesh = useRef<THREE.Mesh>(null!);
