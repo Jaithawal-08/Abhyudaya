@@ -4,16 +4,21 @@ import { Suspense, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { CAMERA, COLORS, PERFORMANCE } from "@/utils/threeDefaults";
 
-const LOGO_URL = "https://cdn.builder.io/api/v1/image/assets%2F9758f7b189e3493e85a0640ad32b6e46%2Fe1068dbaed354b2bbc6891ac7ddc1046?format=webp&width=800";
+const LOGO_URL =
+  "https://cdn.builder.io/api/v1/image/assets%2F9758f7b189e3493e85a0640ad32b6e46%2Fe1068dbaed354b2bbc6891ac7ddc1046?format=webp&width=800";
 
 function LogoPlane() {
   const mesh = useRef<THREE.Mesh>(null!);
   const texture = useTexture(LOGO_URL);
-  const material = useMemo(() => new THREE.MeshBasicMaterial({
-    transparent: true,
-    opacity: 1,
-    side: THREE.DoubleSide,
-  }), []);
+  const material = useMemo(
+    () =>
+      new THREE.MeshBasicMaterial({
+        transparent: true,
+        opacity: 1,
+        side: THREE.DoubleSide,
+      }),
+    [],
+  );
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
@@ -41,7 +46,11 @@ function Lights() {
   return (
     <>
       <ambientLight intensity={0.6} />
-      <directionalLight position={[2, 3, 4]} intensity={0.8} color={COLORS.brand} />
+      <directionalLight
+        position={[2, 3, 4]}
+        intensity={0.8}
+        color={COLORS.brand}
+      />
     </>
   );
 }
@@ -53,13 +62,29 @@ export default function Scene3D() {
       <Canvas
         shadows={false}
         dpr={[1, 1.75]}
-        camera={{ fov: CAMERA.fov, near: CAMERA.near, far: CAMERA.far, position: CAMERA.position }}
+        camera={{
+          fov: CAMERA.fov,
+          near: CAMERA.near,
+          far: CAMERA.far,
+          position: CAMERA.position,
+        }}
       >
         <Suspense fallback={null}>
           <Lights />
-          <Stars radius={60} depth={40} count={1200} factor={3} fade speed={0.4} />
+          <Stars
+            radius={60}
+            depth={40}
+            count={1200}
+            factor={3}
+            fade
+            speed={0.4}
+          />
           <LogoPlane />
-          <OrbitControls enablePan={false} enableZoom={false} enableRotate={false} />
+          <OrbitControls
+            enablePan={false}
+            enableZoom={false}
+            enableRotate={false}
+          />
         </Suspense>
       </Canvas>
     </div>

@@ -27,7 +27,9 @@ export default function NavBar() {
               />
             </div>
             <div className="leading-tight">
-              <div className="font-orbitron text-sm uppercase tracking-widest text-white">Abhyudaya</div>
+              <div className="font-orbitron text-sm uppercase tracking-widest text-white">
+                Abhyudaya
+              </div>
               <div className="font-semibold text-white">Club Portal</div>
             </div>
           </Link>
@@ -40,7 +42,9 @@ export default function NavBar() {
                     cn(
                       "px-3 py-2 rounded-md text-sm transition-colors",
                       "text-white",
-                      isActive || location.pathname === item.to ? "bg-white/10" : "hover:bg-white/10",
+                      isActive || location.pathname === item.to
+                        ? "bg-white/10"
+                        : "hover:bg-white/10",
                     )
                   }
                 >
@@ -50,7 +54,12 @@ export default function NavBar() {
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <Link to="/events" className="px-4 py-2 rounded-full bg-black text-white font-semibold">Explore Events</Link>
+            <Link
+              to="/events"
+              className="px-4 py-2 rounded-full bg-black text-white font-semibold"
+            >
+              Explore Events
+            </Link>
           </div>
         </div>
       </nav>

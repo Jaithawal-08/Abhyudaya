@@ -9,10 +9,16 @@ export default function Events() {
       </div>
       <div className="mt-6 grid md:grid-cols-3 gap-4">
         {Array.from({ length: 6 }).map((_, i) => (
-          <motion.div key={i} whileHover={{ rotateX: 6, rotateY: -6, y: -8 }} className="glass p-6">
+          <motion.div
+            key={i}
+            whileHover={{ rotateX: 6, rotateY: -6, y: -8 }}
+            className="glass p-6"
+          >
             <div className="text-xs text-white/60">Event {i + 1}</div>
             <div className="mt-2 text-white font-semibold">Title TBD</div>
-            <div className="mt-1 text-white/60 text-sm">Date • Time • Venue</div>
+            <div className="mt-1 text-white/60 text-sm">
+              Date • Time • Venue
+            </div>
           </motion.div>
         ))}
       </div>

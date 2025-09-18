@@ -22,10 +22,27 @@ function makeBeamTexture(color: string) {
   return tex;
 }
 
-function Beam({ color = "#00A2FF", speed = 1, y = 0, rot = 0 }: { color?: string; speed?: number; y?: number; rot?: number }) {
-  const mat = useMemo(() => new THREE.MeshBasicMaterial({
-    map: makeBeamTexture(color), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false
-  }), [color]);
+function Beam({
+  color = "#00A2FF",
+  speed = 1,
+  y = 0,
+  rot = 0,
+}: {
+  color?: string;
+  speed?: number;
+  y?: number;
+  rot?: number;
+}) {
+  const mat = useMemo(
+    () =>
+      new THREE.MeshBasicMaterial({
+        map: makeBeamTexture(color),
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      }),
+    [color],
+  );
   const mesh = useRef<THREE.Mesh>(null!);
 
   useFrame((state) => {
@@ -60,9 +77,18 @@ function Particles() {
     g.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     return g;
   }, []);
-  const mat = useMemo(() => new THREE.PointsMaterial({
-    color: new THREE.Color("#00A2FF"), size: 0.06, transparent: true, opacity: 0.0, blending: THREE.AdditiveBlending, depthWrite: false
-  }), []);
+  const mat = useMemo(
+    () =>
+      new THREE.PointsMaterial({
+        color: new THREE.Color("#00A2FF"),
+        size: 0.06,
+        transparent: true,
+        opacity: 0.0,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      }),
+    [],
+  );
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
@@ -76,7 +102,13 @@ function Particles() {
   return <points ref={ref} geometry={geom} material={mat} />;
 }
 
-export default function Intro({ onFinish, durationMs = 2600 }: { onFinish: () => void; durationMs?: number }) {
+export default function Intro({
+  onFinish,
+  durationMs = 2600,
+}: {
+  onFinish: () => void;
+  durationMs?: number;
+}) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -154,7 +186,7 @@ export default function Intro({ onFinish, durationMs = 2600 }: { onFinish: () =>
             orthographic
             camera={{ position: [0, 0, 10], zoom: 60 }}
             dpr={[1, 2]}
-         >
+          >
             {/* beams */}
             <Beam color="#ff3b3b" speed={1.6} y={1.8} rot={0.1} />
             <Beam color="#00a2ff" speed={1.9} y={0.6} rot={-0.05} />
@@ -171,7 +203,11 @@ export default function Intro({ onFinish, durationMs = 2600 }: { onFinish: () =>
               className="w-40 md:w-56 drop-shadow-[0_0_30px_rgba(0,162,255,0.6)]"
               initial={{ opacity: 0, scale: 0.9, filter: "blur(8px)" }}
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.7 }}
+              transition={{
+                duration: 0.9,
+                ease: [0.16, 1, 0.3, 1],
+                delay: 0.7,
+              }}
             />
           </div>
 
@@ -192,7 +228,13 @@ export default function Intro({ onFinish, durationMs = 2600 }: { onFinish: () =>
                 <iframe
                   title="Abhyudaya Intro Form Fallback"
                   src="https://forms.visme.co/g7ddqxx0-untitled-project?fullPage=true"
-                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    border: 0,
+                  }}
                   loading="lazy"
                 />
               )}

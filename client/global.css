@@ -111,12 +111,20 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    background-image: radial-gradient(hsla(var(--brand)/0.15) 1px, transparent 1px), radial-gradient(hsla(var(--brand)/0.08) 1px, transparent 1px);
-    background-position: 0 0, 25px 25px;
+    background-image:
+      radial-gradient(hsla(var(--brand) / 0.15) 1px, transparent 1px),
+      radial-gradient(hsla(var(--brand) / 0.08) 1px, transparent 1px);
+    background-position:
+      0 0,
+      25px 25px;
     background-size: 50px 50px;
   }
 
-  h1, h2, h3, .font-heading, .font-display {
+  h1,
+  h2,
+  h3,
+  .font-heading,
+  .font-display {
     font-family: "Orbitron", ui-sans-serif, system-ui, sans-serif;
     letter-spacing: 0.02em;
   }
