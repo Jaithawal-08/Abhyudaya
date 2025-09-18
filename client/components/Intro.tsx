@@ -135,18 +135,15 @@ export default function Intro({ onFinish }: { onFinish: () => void }) {
             />
           </div>
 
-          {/* Embedded Visme form (small, responsive) */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[92vw] max-w-md pointer-events-auto">
-            <div className="glass p-2">
-              <div
-                className="visme_d"
-                data-title="Webinar Registration Form"
-                data-url="g7ddqxx0-untitled-project?fullPage=true"
-                data-domain="forms"
-                data-full-page="false"
-                data-min-height="260px"
-                data-form-id="133190"
-                style={{ height: 260 }}
+          {/* Embedded Visme form (full-screen, reliable) */}
+          <div className="absolute inset-0 grid place-items-center z-[101] pointer-events-auto">
+            <div className="w-[92vw] h-[80vh] md:w-[80vw] md:h-[80vh] max-w-5xl glass overflow-hidden">
+              <iframe
+                title="Abhyudaya Intro Form"
+                src="https://forms.visme.co/g7ddqxx0-untitled-project?fullPage=true"
+                style={{ width: "100%", height: "100%", border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
           </div>
