@@ -89,16 +89,30 @@ export default function Intro({ onFinish, durationMs = 2600 }: { onFinish: () =>
   }, [onFinish, durationMs]);
 
   // load Visme embed script once
+  const [embedReady, setEmbedReady] = useState(false);
   useEffect(() => {
     if (!visible) return;
     const id = "vismeforms-embed";
+    const ensureInit = () => {
+      // @ts-ignore
+      if (window.VismeForms && typeof window.VismeForms.init === "function") {
+        // @ts-ignore
+        window.VismeForms.init();
+        setEmbedReady(true);
+      }
+    };
     if (!document.getElementById(id)) {
       const s = document.createElement("script");
       s.id = id;
       s.src = "https://static-bundles.visme.co/forms/vismeforms-embed.js";
       s.async = true;
+      s.onload = ensureInit;
       document.body.appendChild(s);
+    } else {
+      ensureInit();
     }
+    const t = setTimeout(() => setEmbedReady(true), 1200); // fallback ready state
+    return () => clearTimeout(t);
   }, [visible]);
 
   return (
@@ -148,16 +162,27 @@ export default function Intro({ onFinish, durationMs = 2600 }: { onFinish: () =>
             />
           </div>
 
-          {/* Embedded Visme form (full-screen, reliable) */}
+          {/* Embedded Visme form (full-screen). Uses official embed + iframe fallback */}
           <div className="absolute inset-0 grid place-items-center z-[101] pointer-events-auto">
             <div className="w-[92vw] h-[80vh] md:w-[80vw] md:h-[80vh] max-w-5xl glass overflow-hidden">
-              <iframe
-                title="Abhyudaya Intro Form"
-                src="https://forms.visme.co/g7ddqxx0-untitled-project?fullPage=true"
-                style={{ width: "100%", height: "100%", border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+              <div
+                className="visme_d"
+                data-title="Abhyudaya Intro Form"
+                data-url="g7ddqxx0-untitled-project?fullPage=true"
+                data-domain="forms"
+                data-full-page="true"
+                data-min-height="80vh"
+                data-form-id="133190"
+                style={{ width: "100%", height: "100%" }}
               />
+              {!embedReady && (
+                <iframe
+                  title="Abhyudaya Intro Form Fallback"
+                  src="https://forms.visme.co/g7ddqxx0-untitled-project?fullPage=true"
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+                  loading="lazy"
+                />
+              )}
             </div>
           </div>
         </motion.div>
